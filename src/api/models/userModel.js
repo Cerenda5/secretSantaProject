@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let postSchema = new Schema({
+let userSchema = new Schema({
   name: {
     type: String,
     required: "Le nom est requis"
@@ -18,4 +18,4 @@ let postSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('User', userSchema);

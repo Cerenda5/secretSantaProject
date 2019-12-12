@@ -11,7 +11,7 @@ const mongooseParams = {
   useNewUrlParser: true,
   useCreateIndex: true
 }
-mongoose.connect('mongodb://mongo/api_node_last', mongooseParams); // docker (mongo = nom du container)
+mongoose.connect('mongodb://mongo/secretSantaProject', mongooseParams); // docker (mongo = nom du container)
 //mongoose.connect('mongodb://localhost:27017/api_node_last', mongooseParams); // windows sans docker
 
 const bodyParser = require('body-parser');
@@ -20,7 +20,9 @@ app.use(bodyParser.json())
 
 const postRoute = require('./api/routes/postRoute');
 const commentRoute = require('./api/routes/commentRoute');
+const userRoute = require('./api/routes/userRoute');
 postRoute(app);
 commentRoute(app);
+userRoute(app);
 
 app.listen(port, hostname);
