@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let userSchema = new Schema({
-  name: {
+let groupSchema = new Schema({
+  groupname: {
     type: String,
-    required: "Le nom d'utilisateur est requis"
+    required: "Le nom du groupe est requis"
   },
   id_group: {
     type: String,
   },
-  wish: {
+  description: {
     type: String,
   },
   created_at : {
@@ -18,4 +18,4 @@ let userSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Group', groupSchema);

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const userModel = require('../models/userModel');
-const User = mongoose.model("User");
+const groupModel = require('../models/groupModel');
+const Group = mongoose.model("Group");
 const textApiProvider = require('../providers/textApiProvider');
 
-exports.list_all_users = (req, res) => {
-  User.find({}, (error, users) => {
+exports.list_all_groups = (req, res) => {
+  Group.find({}, (error, groups) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -12,21 +12,21 @@ exports.list_all_users = (req, res) => {
     }
     else {
       res.status(200);
-      res.json(users);
+      res.json(groups);
     }
   })
 }
 
-exports.create_a_user = (req, res) => {
-  let new_user = new User(req.body);
+exports.create_a_group = (req, res) => {
+  let new_group = new Group(req.body);
 
   const randomTextPromise = textApiProvider.getRandomText();
 
   randomTextPromise.then(response => {
-    if(!new_user.content){
-      new_user.content = response;
+    if(!new_group.content){
+      new_group.content = response;
     }
-    new_user.save((error, user) => {
+    new_group.save((error, group) => {
       if(error){
         res.status(500);
         console.log(error);
@@ -34,7 +34,7 @@ exports.create_a_user = (req, res) => {
       }
       else {
         res.status(201);
-        res.json(user);
+        res.json(group);
       }
     });
   }, error => {
@@ -42,8 +42,8 @@ exports.create_a_user = (req, res) => {
   })
 }
 
-exports.get_a_user = (req, res) => {
-  User.findById(req.params.user_id, (error, user) => {
+exports.get_a_group = (req, res) => {
+  Group.findById(req.params.group_id, (error, group) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -51,13 +51,13 @@ exports.get_a_user = (req, res) => {
     }
     else {
       res.status(200);
-      res.json(user);
+      res.json(group);
     }
   })
 }
 
-exports.update_a_user = (req, res) => {
-  User.findOneAndUpdate({_id: req.params.user_id}, req.body, {new: true}, (error, user) => {
+exports.update_a_group = (req, res) => {
+  Group.findOneAndUpdate({_id: req.params.group_id}, req.body, {new: true}, (error, group) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -65,13 +65,13 @@ exports.update_a_user = (req, res) => {
     }
     else {
       res.status(200);
-      res.json(user);
+      res.json(group);
     }
   })
 }
 
-exports.delete_a_user = (req, res) => {
-  User.remove({_id: req.params.user_id}, (error) => {
+exports.delete_a_group = (req, res) => {
+  Group.remove({_id: req.params.group_id}, (error) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -79,7 +79,7 @@ exports.delete_a_user = (req, res) => {
     }
     else {
       res.status(200);
-      res.json({message: "Utilisateur supprimé"});
+      res.json({message: "Groupe supprimé"});
     }
   })
 }
