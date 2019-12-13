@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Groupe</title>
+</head>
+<body>
+    <h1>A GROUP Santa Secret</h1>
+    <div id="card" style="width: 100%;"></div>
+
+    <div style="width: 100%;" id="div" class="bg-modal">
+        <div style="width:100%; ">
+            <!-- <p id ="open-form">Create new user</p> -->
+        </div>
+        <div class="modal-content">
+            <img src="santa.png">
+            <form method="POST" action="#">
+                    <label for="name">Entrez un nom d'utilisateur</label>
+                    <input type="text" name="name" id="name">
+                    <label for="wish">Entrez un voeu de cadeau</label>
+                    <input type="text" name="wish" id="wish">
+                    <button type="submit" id="sendUser">Ajouter l'utilisateur</button>
+                  </form>
+        </div>
+        <div id='infoSendUser'></div>
+    </div>
+    
+        
+
+<!-- SCRIPT POUR GET -->
+    <script>
+    let card = document.getElementById('card');
+    let get = $.getJSON( 'http://localhost:3000/users' , function(succes)
+                {
+                    console.log(succes);
+                    let ul = document.createElement('ul');
+                    
+                    succes.forEach(element => 
+                        {
+                            let li = document.createElement('li');
+                            li.innerHTML = '<p>' + element['name'] + ' ==> ' + element['wish'] + '</p>';
+
+                            let span = document.createElement('span');
+                            span.setAttribute("class","button_cont");
+
+                            //let a = document.createElement('a');
+                            //a.setAttribute("class","edit");
+                            //a.innerText = "Edit";
+                            
+                            let a = document.createElement('a');
+                            a.setAttribute("href","http://localhost:3000/users/" + element['_id']);
+                            a.setAttribute("class","edit");
+                            a.innerText = "Voir";
+
+                            span.appendChild(a);
+                            li.appendChild(span);
+                            ul.appendChild(li);
+  
+                        });
+                        card.innerHTML = '';
+                        card.appendChild(ul);
+                });</script>
+
+<!-- SCRIPT POUR POST -->
+<script>
+    $('#sendUser').on('click', function() {
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/users',
+        data: { "name": $('#name').val(), "wish": $('#wish').val() },
+        timeout: 3000,
+        success: function(data){
+          $('#infoSendUser').html(res.data);
+        },
+        error: function(){
+          $('#infoSendUser').html('Cette requête AJAX n\'a pas abouti');
+        }
+      });
+    });
+</script>
+
+</div>
+</body>
+</html>

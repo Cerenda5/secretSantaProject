@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <script source="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Secret Santa</h1>
+    </div>
+    <div class="card">
+        <ul>
+            <li>
+                <span class="name">Georgio</span>
+                <span class="creationDate">11/12/2019</span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Edit
+                    </a>
+                </span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Delete
+                    </a>
+                </span>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <span class="name">Georgio</span>
+                <span class="creationDate">11/12/2019</span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Edit
+                    </a>
+                </span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Delete
+                    </a>
+                </span>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <span class="name">Georgio</span>
+                <span class="creationDate">11/12/2019</span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Edit
+                    </a>
+                </span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Delete
+                    </a>
+                </span>
+            </li>
+        </ul>
+           <ul>
+            <li>
+                <span class="name">Georgio</span>
+                <span class="creationDate">11/12/2019</span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Edit
+                    </a>
+                </span>
+                <span class="button_cont" align="center">
+                    <a class="exemple_b" href="add-website-here" target="_blank" rel="nofollow noopener">
+                        Delete
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <span class="button_cont" align="center">
+        <a class="exemple_add" href="add-website-here" target="_blank" rel="nofollow noopener">
+            Add new group
+        </a>
+    </span>
+    <script>
+        let card = document.getElementById('card');
+
+    
+let get = $.getJSON( 'http://localhost/PHP/exoAjax/php/jison.php' , function(succes)
+{
+    console.log(succes);
+    let ul = document.createElement('ul');
+    succes.forEach(element => 
+        {
+            let li = document.createElement('li');
+            li.innerText = element['name'] + ' ==> ' + element['phone'];
+            ul.appendChild(li);
+        });
+        resultat.innerHTML = '';
+        resultat.appendChild(ul);
+});
+    </script>
+</body>
+</html>

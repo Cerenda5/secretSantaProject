@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Groupe</title>
+</head>
+<body>
+    <h1>Welcome to Santa Secret</h1>
+    <div id="card" style="width: 100%;"></div>
+
+    <div style="width: 100%;" id="div" class="bg-modal" onclick="close(this)">
+        <div style="width:100%; ">
+            <!-- <p id ="open-form">Create new group</p> -->
+        </div>
+        <div class="modal-content">
+            <img src="santa.png">
+            <form method="POST" action="#">
+                    <label for="groupname">Entrez un nom de groupe</label>
+                    <input type="text" name="groupname" id="groupname">
+                    <label for="description">Entrez une description</label>
+                    <input type="text" name="description" id="description">
+                    <button type="submit" id="sendGroup">Envoyer</button>
+                  </form>
+        </div>
+        <div id='infoSendGroup'></div>
+    </div>
+
+    <!-- <div><form method="POST" action="#">
+            <input type="text" name="groupname" id="groupname">
+            <label for="groupname">Entrez un nom de groupe</label>
+            <input type="text" name="description" id="description">
+            <label for="description">Entrez une description</label>
+            <button type="submit" id="sendGroup">Envoyer</button>
+          </form></div>
+    <div id='infoSendGroup'></div> -->
+    
+        
+
+<!-- SCRIPT POUR GET -->
+    <script>
+    let card = document.getElementById('card');
+    let get = $.getJSON( 'http://localhost:3000/groups' , function(succes)
+                {
+                    console.log(succes);
+                    let ul = document.createElement('ul');
+                    
+                    succes.forEach(element => 
+                        {
+                            let li = document.createElement('li');
+                            li.innerHTML = '<p>' + element['groupname'] + ' ==> ' + element['description'] + '</p>';
+
+                            let span = document.createElement('span');
+                            span.setAttribute("class","button_cont");
+
+                            //let a = document.createElement('a');
+                            //a.setAttribute("class","edit");
+                            //a.innerText = "Edit";
+                            
+                            let a = document.createElement('a');
+                            a.setAttribute("href","http://localhost:3000/groups/" + element['_id']);
+                            a.setAttribute("class","edit");
+                            a.innerText = "Voir";
+
+                            span.appendChild(a);
+                            li.appendChild(span);
+                            ul.appendChild(li);
+  
+                        });
+                        card.innerHTML = '';
+                        card.appendChild(ul);
+                });</script>
+
+<!-- SCRIPT POUR POST -->
+<script>
+    $('#sendGroup').on('click', function() {
+        var r = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/groups',
+        data: { "groupname": $('#groupname').val(), "id_group": r, "description": $('#description').val() },
+        timeout: 3000,
+        success: function(data){
+          $('#infoSendGroup').html(res.data);
+        },
+        error: function(){
+          $('#infoSendGroup').html('Cette requête AJAX n\'a pas abouti');
+        }
+      });
+    });
+</script>
+
+</div>
+</body>
+</html>
