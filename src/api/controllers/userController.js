@@ -11,7 +11,7 @@ exports.list_all_users = (req, res) => {
       res.json({message: "Erreur serveur."});
     }
     else {
-      res.status(200);
+      res.status(201);
       res.json(users);
     }
   })
